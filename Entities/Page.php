@@ -19,7 +19,7 @@ class Page extends Model implements TaggableInterface
         'title',
         'slug',
         'status',
-        'body',
+        //'body',
         'meta_title',
         'meta_description',
         'og_title',
@@ -35,7 +35,7 @@ class Page extends Model implements TaggableInterface
         'title',
         'slug',
         'status',
-        'body',
+        //'body',
         'meta_title',
         'meta_description',
         'og_title',
@@ -65,7 +65,7 @@ class Page extends Model implements TaggableInterface
 
     public function blocks()
     {
-        return $this->hasMany(PageBlock::class);
+        return $this->belongsToMany(PageBlock::class, 'pages__blocks', 'page_id', 'block_id');
     }
 
     public function __call($method, $parameters)

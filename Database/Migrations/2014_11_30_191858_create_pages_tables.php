@@ -17,7 +17,6 @@ class CreatePagesTables extends Migration
             $table->increments('id');
             $table->boolean('is_home')->default(0);
             $table->string('template');
-            $table->string('block_id');
             $table->timestamps();
         });
 
@@ -30,7 +29,7 @@ class CreatePagesTables extends Migration
             $table->string('title');
             $table->string('slug');
             $table->boolean('status')->default(1);
-            $table->text('body');
+            //$table->text('body');
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('og_title')->nullable();
@@ -48,6 +47,16 @@ class CreatePagesTables extends Migration
             $table->increments('id');
             $table->string('type');
             $table->integer('content_id');
+        });
+
+        Schema::create('pages__blocks', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
+            $table->integer('block_id')->unsigned();
+            $table->foreign('block_id')->references('id')->on('page__blocks');
+
+            $table->integer('page_id')->unsigned();
+            $table->foreign('page_id')->references('id')->on('page__pages');
         });
     }
 
