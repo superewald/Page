@@ -5,12 +5,13 @@ namespace Modules\Page\Entities;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Traits\NamespacedEntity;
+use Modules\Media\Support\Traits\MediaRelation;
 use Modules\Tag\Contracts\TaggableInterface;
 use Modules\Tag\Traits\TaggableTrait;
 
 class Page extends Model implements TaggableInterface
 {
-    use Translatable, TaggableTrait, NamespacedEntity;
+    use Translatable, TaggableTrait, NamespacedEntity, MediaRelation;
 
     protected $table = 'page__pages';
     public $translatedAttributes = [
@@ -41,11 +42,31 @@ class Page extends Model implements TaggableInterface
         'og_description',
         'og_image',
         'og_type',
+        'blocks'
     ];
     protected $casts = [
         'is_home' => 'boolean',
     ];
     protected static $entityNamespace = 'asgardcms/page';
+
+    public function getCanonicalUrl() : string
+    {
+        if ($this->is_home === true) {
+            return url('/');
+        }
+
+        return route('page', $this->slug);
+    }
+
+    public function getEditUrl() : string
+    {
+        return route('admin.page.page.edit', $this->id);
+    }
+
+    public function blocks()
+    {
+        return $this->hasMany(PageBlock::class);
+    }
 
     public function __call($method, $parameters)
     {

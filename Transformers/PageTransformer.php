@@ -14,12 +14,12 @@ class PageTransformer extends Resource
             'template' => $this->template,
             'created_at' => $this->created_at->format('d-m-Y'),
             'translations' => [
-                'title' => $this->translate(locale())->title,
-                'slug' => $this->translate(locale())->slug,
+                'title' => optional($this->translate(locale()))->title,
+                'slug' => optional($this->translate(locale()))->slug,
+                'status' => optional($this->translate(locale()))->status,
             ],
             'urls' => [
                 'delete_url' => route('api.page.page.destroy', $this->id),
-                'edit_url' => route('admin.page.page.edit', $this->id),
             ],
         ];
     }
