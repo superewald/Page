@@ -9,6 +9,12 @@ class PageBlock extends Model
     protected $table = 'page__blocks';
 
     public $translatedAttributes = [
+        'title',
+        'content'
+    ];
 
+    protected $fillable = [
+        'title',
+        'content'
     ];
 }

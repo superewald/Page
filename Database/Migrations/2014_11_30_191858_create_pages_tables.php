@@ -45,8 +45,8 @@ class CreatePagesTables extends Migration
         Schema::create('page__blocks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('type');
-            $table->integer('content_id');
+            $table->string('title');
+            $table->string('content');
         });
 
         Schema::create('pages__blocks', function (Blueprint $table) {
