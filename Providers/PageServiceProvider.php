@@ -11,9 +11,12 @@ use Modules\Core\Traits\CanGetSidebarClassForModule;
 use Modules\Core\Traits\CanPublishConfiguration;
 use Modules\Page\Console\CreatePagesCommand;
 use Modules\Page\Entities\Page;
+use Modules\Page\Entities\PageBlock;
 use Modules\Page\Events\Handlers\RegisterPageSidebar;
 use Modules\Page\Repositories\Cache\CachePageDecorator;
+use Modules\Page\Repositories\Eloquent\EloquentPageBlockRepository;
 use Modules\Page\Repositories\Eloquent\EloquentPageRepository;
+use Modules\Page\Repositories\PageBlockRepository;
 use Modules\Page\Repositories\PageRepository;
 use Modules\Page\Services\FinderService;
 use Modules\Tag\Repositories\TagManager;
@@ -84,6 +87,10 @@ class PageServiceProvider extends ServiceProvider
             }
 
             return new CachePageDecorator($repository);
+        });
+
+        $this->app->bind(PageBlockRepository::class, function (){
+            return new EloquentPageBlockRepository(new PageBlock());
         });
     }
 
