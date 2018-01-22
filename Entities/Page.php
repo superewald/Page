@@ -42,6 +42,7 @@ class Page extends Model implements TaggableInterface
         'og_description',
         'og_image',
         'og_type',
+        'blocks'
     ];
     protected $casts = [
         'is_home' => 'boolean',
@@ -60,6 +61,11 @@ class Page extends Model implements TaggableInterface
     public function getEditUrl() : string
     {
         return route('admin.page.page.edit', $this->id);
+    }
+
+    public function blocks()
+    {
+        return $this->hasMany(PageBlock::class);
     }
 
     public function __call($method, $parameters)
