@@ -45,8 +45,21 @@ class CreatePagesTables extends Migration
         Schema::create('page__blocks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->timestamps();
+        });
+
+        Schema::create('page__block_translations', function (Blueprint $table){
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('locale')->index();
+            $table->integer('block_id')->unsigned();
+
             $table->string('title');
             $table->string('content');
+
+            $table->unique(['block_id', 'locale']);
+            $table->foreign('block_id')->references('id')->on('page__blocks')->onDelete('cascade');
+            $table->timestamps();
         });
 
         Schema::create('pages__blocks', function (Blueprint $table) {

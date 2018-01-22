@@ -20,7 +20,7 @@ class UpdatePageRequest extends BaseFormRequest
         return [
             'title' => 'required',
             'slug' => 'required',
-            'body' => 'required',
+            //'body' => 'required',
         ];
     }
 

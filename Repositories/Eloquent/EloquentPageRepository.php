@@ -74,6 +74,8 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
      */
     public function update($model, $data)
     {
+        $this->updateBlocks($model, $data);
+
         if (array_get($data, 'is_home') === '1') {
             $this->removeOtherHomepage($model->id);
         }
@@ -86,6 +88,28 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
         $model->setTags(array_get($data, 'tags', []));
 
         return $model;
+    }
+
+    protected function updateBlocks($model, $data)
+    {
+        $blocks = $data['blocks'];
+        $blockSync = [];
+        foreach ($blocks as $block)
+        {
+            $pivot = $block['pivot'];
+            $blockId = $pivot['block_id'];
+            array_push($blockSync, $blockId);
+
+            $blockData = [
+                'title' => $block['title'],
+                'content' => $block['content'],
+            ];
+
+            $block = app(PageBlockRepository::class)->find($blockId);
+            $block->update($blockData);
+        }
+
+        $model->blocks()->sync($blocks);
     }
 
     public function destroy($page)
