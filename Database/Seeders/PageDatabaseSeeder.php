@@ -4,6 +4,7 @@ namespace Modules\Page\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Modules\Page\Repositories\PageBlockRepository;
 use Modules\Page\Repositories\PageRepository;
 
 class PageDatabaseSeeder extends Seeder
@@ -13,9 +14,15 @@ class PageDatabaseSeeder extends Seeder
      */
     private $page;
 
-    public function __construct(PageRepository $page)
+    private $block;
+
+    private $faker;
+
+    public function __construct(PageRepository $page, PageBlockRepository $block)
     {
         $this->page = $page;
+        $this->block = $block;
+        $this->faker = Faker\Factory::create();
     }
 
     public function run()
@@ -31,6 +38,20 @@ class PageDatabaseSeeder extends Seeder
                 'meta_title' => 'Home page',
             ],
         ];
-        $this->page->create($data);
+
+        $page = $this->page->create($data);
+
+	    for($x = 0; $x < 5; $x++)
+	    {
+			$blockData = [
+				'en' => [
+					'title' => $this->faker->name,
+					'content' => $this->faker->text
+				],
+			];
+
+			$block = $this->block->create($data);
+			$page->blocks()->attach([$block->id]);
+	    }
     }
 }
