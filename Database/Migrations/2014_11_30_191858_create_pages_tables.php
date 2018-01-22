@@ -52,13 +52,13 @@ class CreatePagesTables extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('locale')->index();
-            $table->integer('block_id')->unsigned();
+            $table->integer('page_block_id')->unsigned();
 
             $table->string('title');
             $table->string('content');
 
-            $table->unique(['block_id', 'locale']);
-            $table->foreign('block_id')->references('id')->on('page__blocks')->onDelete('cascade');
+            $table->unique(['page_block_id', 'locale']);
+            $table->foreign('page_block_id')->references('id')->on('page__blocks')->onDelete('cascade');
             $table->timestamps();
         });
 
