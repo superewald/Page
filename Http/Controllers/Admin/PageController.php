@@ -59,10 +59,7 @@ class PageController extends AdminBaseController
      */
     public function edit(Page $page)
     {
-        $pageArray = compact('page');
-        $pageArray['blocks'] = $page->blocks;
-
-        return view('page::admin.edit', $pageArray);
+        return view('page::admin.edit', compact('page'));
     }
 
     /**

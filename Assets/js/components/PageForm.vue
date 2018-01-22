@@ -51,7 +51,7 @@
                                         <div class="el-form-item__error" v-if="form.errors.has(locale + '.body')"
                                              v-text="form.errors.first(locale + '.body')"></div>
                                     </el-form-item>-->
-
+                                    <div>HELLO</div>
                                     <el-form-item :label="trans('pages.blocks')"
                                                   :class="{'el-form-item is error': form.errors.has(locale + '.title') }">
                                         <el-collapse accordion>
