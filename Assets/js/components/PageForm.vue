@@ -53,7 +53,6 @@
                                     </el-form-item>-->
                                     <el-form-item :label="trans('pages.blocks')"
                                                   :class="{'el-form-item is error': form.errors.has(locale + '.title') }">
-                                        <div>{{ 'Hello' }}</div>
                                         <el-collapse accordion>
                                             <el-collapse-item v-for="block in page.blocks" :title="block.title"
                                                               v-bind:data="block"

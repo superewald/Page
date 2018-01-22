@@ -16,6 +16,7 @@ class FullPageTransformer extends Resource
             'urls' => [
                 'public_url' => $this->getCanonicalUrl(),
             ],
+            'blocks' => $this->blocks
         ];
 
         foreach (LaravelLocalization::getSupportedLocales() as $locale => $supportedLocale) {
