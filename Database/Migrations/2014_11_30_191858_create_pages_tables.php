@@ -17,6 +17,7 @@ class CreatePagesTables extends Migration
             $table->increments('id');
             $table->boolean('is_home')->default(0);
             $table->string('template');
+            $table->string('block_id');
             $table->timestamps();
         });
 
@@ -40,6 +41,13 @@ class CreatePagesTables extends Migration
             $table->unique(['page_id', 'locale']);
             $table->foreign('page_id')->references('id')->on('page__pages')->onDelete('cascade');
             $table->timestamps();
+        });
+
+        Schema::create('page__blocks', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('type');
+            $table->integer('content_id');
         });
     }
 

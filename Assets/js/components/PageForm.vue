@@ -43,13 +43,29 @@
                                              v-text="form.errors.first(locale + '.slug')"></div>
                                     </el-form-item>
 
-                                    <el-form-item :label="trans('pages.body')"
+                                    <!--<el-form-item :label="trans('pages.body')"
                                                   :class="{'el-form-item is-error': form.errors.has(locale + '.body') }">
                                         <component :is="getCurrentEditor()" v-model="page[locale].body" :value="page[locale].body">
                                         </component>
 
                                         <div class="el-form-item__error" v-if="form.errors.has(locale + '.body')"
                                              v-text="form.errors.first(locale + '.body')"></div>
+                                    </el-form-item>-->
+
+                                    <el-form-item :label="trans('pages.blocks')"
+                                                  :class="{'el-form-item is error': form.errors.has(locale + '.title') }">
+                                        <el-collapse accordion>
+                                            <el-collapse-item v-for="block in page.blocks" :title="block.title"
+                                                              v-bind:data="block"
+                                                              v-bind:key="block.id">
+                                                <el-form-item :label="trans('pages.block.title')">
+                                                    <el-input v-model="block.title" :value="block.title"></el-input>
+                                                </el-form-item>
+                                                <el-form-item :label="trans('pages.block.content')">
+                                                    <component :is="getCurrentEditor()" v-model="block.content" :value="block.content"></component>
+                                                </el-form-item>
+                                            </el-collapse-item>
+                                        </el-collapse>
                                     </el-form-item>
 
                                     <el-form-item :label="trans('pages.status')"
