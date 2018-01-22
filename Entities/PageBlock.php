@@ -1,6 +1,8 @@
 <?php
 namespace Modules\Page\Entities;
 
+use Illuminate\Database\Eloquent\Model;
+use Dimsav\Translatable\Translatable;
 
 class PageBlock extends Model
 {
