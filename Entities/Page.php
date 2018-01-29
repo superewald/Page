@@ -65,7 +65,7 @@ class Page extends Model implements TaggableInterface
 
     public function blocks()
     {
-        return $this->belongsToMany(PageBlock::class, 'pages__blocks', 'page_id', 'block_id');
+        return $this->belongsToMany(PageBlockInstance::class, PageBlockInstance::PIVOT, 'page_id', 'instance_id');
     }
 
     public function __call($method, $parameters)

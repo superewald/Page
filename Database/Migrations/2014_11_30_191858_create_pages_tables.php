@@ -28,8 +28,7 @@ class CreatePagesTables extends Migration
 
             $table->string('title');
             $table->string('slug');
-            $table->boolean('status')->default(1);
-            //$table->text('body');
+            $table->boolean('status')->default(1);;
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('og_title')->nullable();
@@ -40,36 +39,6 @@ class CreatePagesTables extends Migration
             $table->unique(['page_id', 'locale']);
             $table->foreign('page_id')->references('id')->on('page__pages')->onDelete('cascade');
             $table->timestamps();
-        });
-
-        Schema::create('page__blocks', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->timestamps();
-        });
-
-        Schema::create('page__block_translations', function (Blueprint $table){
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->string('locale')->index();
-            $table->integer('page_block_id')->unsigned();
-
-            $table->string('title');
-            $table->string('content');
-
-            $table->unique(['page_block_id', 'locale']);
-            $table->foreign('page_block_id')->references('id')->on('page__blocks')->onDelete('cascade');
-            $table->timestamps();
-        });
-
-        Schema::create('pages__blocks', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
-            $table->integer('block_id')->unsigned();
-            $table->foreign('block_id')->references('id')->on('page__blocks');
-
-            $table->integer('page_id')->unsigned();
-            $table->foreign('page_id')->references('id')->on('page__pages');
         });
     }
 
